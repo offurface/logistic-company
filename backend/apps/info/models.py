@@ -46,8 +46,9 @@ class Driver(models.Model):
     category = models.CharField(max_length=4, choices=DRIVERS_LICENSE , verbose_name="Категория")
 
 #  Населенные пункты
-class Locality(models.Model):
-    name = models.CharField(max_length=100)
+class Adres(models.Model):
+    city = models.CharField(max_length=100, verbose_name="Город")
+    street = models.CharField(max_length=100, verbose_name="Улица, № Дома")
 
 #  Исполнители частные лица
 class ExecutorPerson(models.Model):
