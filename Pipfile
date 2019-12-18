@@ -1,0 +1,53 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[scripts]
+manage = "python ./backend/manage.py"
+dumpdata = "python ./backend/manage.py dump"
+migrate = "python ./backend/manage.py migrate"
+loaddata = "python ./backend/manage.py loaddata"
+startapp = "python ./backend/manage.py createapp"
+makemigrations = "python ./backend/manage.py makemigrations"
+generateconfig = "python ./backend/manage.py generateconfig"
+server = "python ./backend/manage.py runserver localhost:8000"
+collectstatic = "python ./backend/manage.py collectstatic --noinput"
+
+[dev-packages]
+pylint = "*"
+v = {editable = true,version = "*"}
+django-debug-toolbar = "*"
+autopep8 = "*"
+django-extensions = "*"
+
+[packages]
+django = "<=2.2.8"
+django-cleanup = "*"
+django-widget-tweaks = "*"
+django-settings-export = "*"
+django-webpack-loader = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+drf-yasg = "*"
+arrow = "*"
+django-import-export = "*"
+numpy = "*"
+pandas = "*"
+django-pandas = "*"
+djangoql = "*"
+django-constance = {extras = ["database"],version = "*"}
+django-environ = "*"
+gunicorn = "*"
+mysqlclient = "*"
+psycopg2 = "*"
+djangorestframework-simplejwt = "*"
+django-model-utils = "*"
+pillow = "*"
+django-sql-explorer = "*"
+django-storages = "*"
+django-etc = "*"
+django-rest-multiple-models = "*"
+
+[requires]
+python_version = "3.7"
