@@ -8,8 +8,43 @@
 
 {% block body %}
   <header class="header">
-    {% block header %}
-    {% endblock header %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Заказы</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Справочники
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Организации</a>
+              <a class="dropdown-item" href="#">Клиенты</a>
+              <a class="dropdown-item" href="#">Товары</a>
+              <a class="dropdown-item" href="#">Транспорт</a>
+              <a class="dropdown-item" href="#">Водители</a>
+              <a class="dropdown-item" href="#">Населенные пункты</a>
+              <a class="dropdown-item" href="#">Тарифы</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Исполнители юридические лица</a>
+              <a class="dropdown-item" href="#">Исполнители частные лица</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="header__functions">
+      {% block functions %}
+      {% endblock functions %}
+    </div>
   </header>
   <main class="main">
     {% block content %}

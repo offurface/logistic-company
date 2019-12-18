@@ -1,10 +1,9 @@
 import Vue from 'vue'
-import example from './example'
+
 
 [
   {
-    name: 'example',
-    ...example
+
   }
   // if not component name
   // { name: 'component-name', ...Component }

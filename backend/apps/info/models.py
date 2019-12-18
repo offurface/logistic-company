@@ -15,10 +15,10 @@ class Client(models.Model):
 #  Товары
 class Goods(models.Model):
     name = models.CharField(max_length=100, verbose_name="Наименование")
-    weight = models.DecimalField(verbose_name="Вес")
-    x = models.DecimalField(verbose_name="Ширина")
-    y = models.DecimalField(verbose_name="Длинна")
-    z = models.DecimalField(verbose_name="Высота")
+    weight = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Вес (кг.)")
+    x = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Ширина (м.)")
+    y = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Длинна (м.)")
+    z = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Высота (м.)")
 
 
 #  Транспорт

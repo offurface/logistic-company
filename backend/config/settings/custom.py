@@ -1,7 +1,7 @@
 import os
 from .components import env
 
-TEMPLATE_LAYOUT = 'layouts/%s.html' % env('TEMPLATE_LAYOUT', default='vue')
+TEMPLATE_LAYOUT = 'layouts/%s.html' % env('TEMPLATE_LAYOUT', default='default')
 
 # Setting application write here ...
 
