@@ -26,16 +26,23 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Организации</a>
-              <a class="dropdown-item" href="#">Клиенты</a>
               <a class="dropdown-item" href="#">Товары</a>
               <a class="dropdown-item" href="#">Транспорт</a>
               <a class="dropdown-item" href="#">Водители</a>
               <a class="dropdown-item" href="#">Населенные пункты</a>
               <a class="dropdown-item" href="#">Тарифы</a>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Исполнители юридические лица</a>
-              <a class="dropdown-item" href="#">Исполнители частные лица</a>
+              <a class="dropdown-item" href="#">Исполнители физические лица</a>
+
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Клиенты юридические лица</a>
+              <a class="dropdown-item" href="#">Клиенты физические лица</a>
             </div>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выход</a>
           </li>
         </ul>
       </div>

@@ -39,6 +39,7 @@ DEFAULT_APPS = [
 PROJECT_APPS = [
     'apps.utils.apps.UtilsConfig',
     'apps.main.apps.MainConfig',
+    'apps.accounts.apps.AccountsConfig',
     'apps.api.apps.ApiConfig',
     'apps.info.apps.InfoConfig',
 

@@ -1,12 +1,11 @@
 from django.urls import path, include, re_path
-
+from django.middleware import locale
 from . import views
 
 
 urlpatterns = [
     path('api/', include('apps.api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
+    path('accounts/', include('apps.accounts.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
 
     path('', views.HomeView.as_view(), name='home'),
