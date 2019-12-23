@@ -4,9 +4,12 @@ from django import template
 from webpack_loader.utils import get_as_tags
 from django.utils.safestring import mark_safe
 from webpack_loader.exceptions import WebpackBundleLookupError
-
+import re
+from django import template
+from django.conf import settings
 
 from ..template import EvaluateNode
+
 
 
 register = template.Library()
@@ -54,3 +57,19 @@ def render_bundle(bundle_name, extension=None, config='DEFAULT', attrs=''):
         return mark_safe('\n'.join(tags))
     except WebpackBundleLookupError:
         return ''
+
+
+numeric_test = re.compile("^\d+$")
+def getattribute(value, arg):
+    """Gets an attribute of an object dynamically from a string name"""
+
+    if hasattr(value, str(arg)):
+        return getattr(value, arg)
+    elif hasattr(value, 'has_key') and value.has_key(arg):
+        return value[arg]
+    elif numeric_test.match(str(arg)) and len(value) > int(arg):
+        return value[int(arg)]
+    else:
+        return settings.TEMPLATE_STRING_IF_INVALID
+
+register.filter('getattribute', getattribute)
