@@ -12,6 +12,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-9">
+      <h3>{% get_verbose_name object %}</h3>
       <table class="table">
         <tbody>
           {% for f, v in object.get_fields_and_values %}
@@ -26,6 +27,7 @@
           {% endfor %}
         </tbody>
       </table>
+      <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
     </div>
   </div>
 </div>

@@ -11,7 +11,10 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
+      {% with object_list|first as object %}
+        <h3>{% get_verbose_name_plural object %}</h3>
+      {% endwith %}
       <table class="table">
         <thead>
           <tr>

@@ -10,10 +10,29 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
     TemplateView,
+    View,
 )
 from . import models, forms
+from docxtpl import DocxTemplate
+from config.settings import TEMPLATES_DIR, PUBLIC_DIR
 
+@method_decorator(login_required, name='dispatch')
+class Test(View):
+    template_name = "universal/docx-create.html"
 
+    def get(self, request, *args, **kwargs):
+        doc = DocxTemplate(TEMPLATES_DIR+"\docx\goods-list.docx")
+
+        context = {
+            'items': models.Goods.objects.all(),
+        }
+        doc.render(context)
+        doc.save(PUBLIC_DIR+"\static\list-result.docx")
+
+        return render(request, self.template_name, {
+            'items': [],
+            'title': 'Готово',
+        })
 @method_decorator(login_required, name='dispatch')
 class OrganizationListView(ListView):
     template_name = "universal/list-view.html"
@@ -230,68 +249,71 @@ class GoodsCreateView(CreateView):
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class OrganizationCreateView(CreateView):
+class TransportCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.OrganizationForm
-    queryset = models.Organization.objects.all()
-    success_url = "/info/organization/"
+    form_class = forms.TransportForm
+    queryset = models.Transport.objects.all()
+    success_url = "/info/transport/"
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class GoodsCreateView(CreateView):
+class DriverCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.GoodsForm
-    queryset = models.Goods.objects.all()
-    success_url = "/info/goods/"
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-@method_decorator(login_required, name='dispatch')
-class OrganizationCreateView(CreateView):
-    template_name = "universal/create-view.html"
-    form_class = forms.OrganizationForm
-    queryset = models.Organization.objects.all()
-    success_url = "/info/organization/"
+    form_class = forms.DriverForm
+    queryset = models.Driver.objects.all()
+    success_url = "/info/driver/"
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class GoodsCreateView(CreateView):
+class AdresCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.GoodsForm
-    queryset = models.Goods.objects.all()
-    success_url = "/info/goods/"
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-@method_decorator(login_required, name='dispatch')
-class OrganizationCreateView(CreateView):
-    template_name = "universal/create-view.html"
-    form_class = forms.OrganizationForm
-    queryset = models.Organization.objects.all()
-    success_url = "/info/organization/"
+    form_class = forms.AdresForm
+    queryset = models.Adres.objects.all()
+    success_url = "/info/adres/"
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class GoodsCreateView(CreateView):
+class ExecutorPersonCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.GoodsForm
-    queryset = models.Goods.objects.all()
-    success_url = "/info/goods/"
+    form_class = forms.ExecutorPersonForm
+    queryset = models.ExecutorPerson.objects.all()
+    success_url = "/info/executor-person/"
 
     def form_valid(self, form):
         return super().form_valid(form)
+
 @method_decorator(login_required, name='dispatch')
-class OrganizationCreateView(CreateView):
+class ExecutorLegalCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.OrganizationForm
-    queryset = models.Organization.objects.all()
-    success_url = "/info/organization/"
+    form_class = forms.ExecutorLegalForm
+    queryset = models.ExecutorLegal.objects.all()
+    success_url = "/info/executor-legal/"
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+@method_decorator(login_required, name='dispatch')
+class ClientPersonCreateView(CreateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.ClientPersonForm
+    queryset = models.ClientPerson.objects.all()
+    success_url = "/info/client-person/"
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+@method_decorator(login_required, name='dispatch')
+class ClientLegalCreateView(CreateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.ClientLegalForm
+    queryset = models.ClientLegal.objects.all()
+    success_url = "/info/client-legal/"
 
     def form_valid(self, form):
         return super().form_valid(form)

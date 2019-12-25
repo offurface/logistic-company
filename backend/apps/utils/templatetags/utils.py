@@ -10,8 +10,6 @@ from django.conf import settings
 
 from ..template import EvaluateNode
 
-
-
 register = template.Library()
 
 
@@ -26,6 +24,7 @@ def get_langs_json(langs):
 @register.simple_tag
 def vardump(var):
     return vars(var)
+
 
 
 @register.simple_tag
@@ -71,5 +70,23 @@ def getattribute(value, arg):
         return value[int(arg)]
     else:
         return settings.TEMPLATE_STRING_IF_INVALID
-
 register.filter('getattribute', getattribute)
+
+
+@register.simple_tag
+def get_verbose_name(object):
+    if(hasattr(object, '_meta')):
+        return object._meta.verbose_name
+    else:
+        return ''
+
+@register.simple_tag
+def get_verbose_name_plural(object):
+    if(hasattr(object, '_meta')):
+        return object._meta.verbose_name_plural
+    else:
+        return ''
+
+@register.simple_tag
+def get_form_name(object):
+    return object._meta.model._meta.verbose_name

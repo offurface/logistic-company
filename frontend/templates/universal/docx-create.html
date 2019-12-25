@@ -1,0 +1,25 @@
+{% extends settings.TEMPLATE_LAYOUT %}
+{% load i18n static %}
+{% load utils %}
+
+{% block functions %}
+  <a class="header__element" href="create/">Добавить</a>
+{% endblock functions %}
+
+
+{% block content %}
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-9">
+      <h1>{{ title }}</h1>
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}

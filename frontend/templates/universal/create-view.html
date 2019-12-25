@@ -10,7 +10,8 @@
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-9">
+      <h3>Добавить запись - "{% get_form_name form %}"?</h3>
       <form class="form-model" action="" method="POST">
       {% csrf_token %}
         <table class="table">
