@@ -16,25 +16,31 @@ from . import models, forms
 
 @method_decorator(login_required, name='dispatch')
 class OrganizationListView(ListView):
-    template_name = "info/goods/organization_list.html"
+    template_name = "universal/list-view.html"
     queryset = models.Organization.objects.all()
 
-
+    def get_context_data(self, **kwargs):
+        context = super(OrganizationListView, self).get_context_data(**kwargs)
+        context['fields'] = models.Organization._meta.get_fields()
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class GoodsListView(ListView):
-    template_name = "info/goods/organization_list.html"
+    template_name = "universal/list-view.html"
     queryset = models.Goods.objects.all()
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(GoodsListView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['fields'] = models.Goods._meta.get_fields()
         return context
 
 
 @method_decorator(login_required, name='dispatch')
 class TransportListView(ListView):
-    template_name = "info/goods/organization_list.html"
+    template_name = "universal/list-view.html"
     queryset = models.Transport.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(TransportListView, self).get_context_data(**kwargs)
+        context['fields'] = models.Transport._meta.get_fields()
+        return context

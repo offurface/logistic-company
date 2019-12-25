@@ -17,6 +17,9 @@ class Goods(models.Model):
     y = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Длинна (м.)")
     z = models.DecimalField(max_digits=100, decimal_places=2, verbose_name="Высота (м.)")
 
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Goods._meta.fields]
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
