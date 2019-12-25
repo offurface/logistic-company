@@ -26,20 +26,20 @@
               Справочники
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Организации</a>
-              <a class="dropdown-item" href="#">Товары</a>
-              <a class="dropdown-item" href="#">Транспорт</a>
-              <a class="dropdown-item" href="#">Водители</a>
-              <a class="dropdown-item" href="#">Населенные пункты</a>
-              <a class="dropdown-item" href="#">Тарифы</a>
+              <a class="dropdown-item" href="{% url 'info:organization-list' %}">Организации</a>
+              <a class="dropdown-item" href="{% url 'info:goods-list' %}">Товары</a>
+              <a class="dropdown-item" href="{% url 'info:transport-list' %}">Транспорт</a>
+              <a class="dropdown-item" href="{% url 'info:driver-list' %}">Водители</a>
+              <a class="dropdown-item" href="{% url 'info:аdres-list' %}">Населенные пункты</a>
+              <a class="dropdown-item" href="{% url 'info:tariff-list' %}">Тарифы</a>
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Исполнители юридические лица</a>
-              <a class="dropdown-item" href="#">Исполнители физические лица</a>
+              <a class="dropdown-item" href="{% url 'info:executor-legal-list' %}">Исполнители юридические лица</a>
+              <a class="dropdown-item" href="{% url 'info:executor-person-list' %}">Исполнители физические лица</a>
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Клиенты юридические лица</a>
-              <a class="dropdown-item" href="#">Клиенты физические лица</a>
+              <a class="dropdown-item" href="{% url 'info:client-legal-list' %}">Клиенты юридические лица</a>
+              <a class="dropdown-item" href="{% url 'info:client-person-list' %}">Клиенты физические лица</a>
             </div>
           </li>
 

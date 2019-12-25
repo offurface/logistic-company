@@ -24,8 +24,6 @@ class AdresForm(forms.ModelForm):
         model = models.Adres
         fields = ('__all__')
 
-
-
 class ExecutorPersonForm(forms.ModelForm):
     class Meta:
         model = models.ExecutorPerson

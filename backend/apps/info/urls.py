@@ -7,87 +7,81 @@ urlpatterns = [
 
     path('organization/', include([
         path('', views.OrganizationListView.as_view(), name='organization-list'),
-    #     path('<int:pk>/', views.SportTypeDetailView.as_view(), name='sport-type-detail'),
-    #     path('create/', views.SportTypeCreateView.as_view(), name='sport-type-create'),
-    #     path('<int:pk>/update/', views.SportTypeUpdateView.as_view(), name='sport-type-update'),
-    #     path('<int:pk>/delete/', views.SportTypeDeleteView.as_view(), name='sport-type-delete'),
+        path('<int:pk>/', views.OrganizationDetailView.as_view(), name='organization-detail'),
+        path('create/', views.OrganizationCreateView.as_view(), name='organization-create'),
+    #     path('<int:pk>/update/', views.OrganizationUpdateView.as_view(), name='organization-update'),
+    #     path('<int:pk>/delete/', views.OrganizationDeleteView.as_view(), name='organization-delete'),
     ])),
 
     path('goods/', include([
         path('', views.GoodsListView.as_view(), name='goods-list'),
-    #     path('<int:pk>/', views.CoachDetailView.as_view(), name='coach-detail'),
-    #     path('create/', views.CoachCreateView.as_view(), name='coach-create'),
-    #     path('<int:pk>/update/', views.CoachUpdateView.as_view(), name='coach-update'),
-    #     path('<int:pk>/delete/', views.CoachDeleteView.as_view(), name='coach-delete'),
+        path('<int:pk>/', views.GoodsDetailView.as_view(), name='goods-detail'),
+        path('create/', views.GoodsCreateView.as_view(), name='goods-create'),
+    #     path('<int:pk>/update/', views.GoodsUpdateView.as_view(), name='goods-update'),
+    #     path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
     ])),
 
     path('transport/', include([
         path('', views.TransportListView.as_view(), name='transport-list'),
-    #     path('<int:pk>/', views.ParentDetailView.as_view(), name='transport-detail'),
-    #     path('create/', views.ParentCreateView.as_view(), name='transport-create'),
-    #     path('<int:pk>/update/', views.ParentUpdateView.as_view(), name='transport-update'),
-    #     path('<int:pk>/delete/', views.ParentDeleteView.as_view(), name='transport-delete'),
+        path('<int:pk>/', views.TransportDetailView.as_view(), name='transport-detail'),
+    #     path('create/', views.TransportCreateView.as_view(), name='transport-create'),
+    #     path('<int:pk>/update/', views.TransportUpdateView.as_view(), name='transport-update'),
+    #     path('<int:pk>/delete/', views.TransportDeleteView.as_view(), name='transport-delete'),
     ])),
 
-    # path('driver/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('driver/', include([
+        path('', views.DriverListView.as_view(), name='driver-list'),
+        path('<int:pk>/', views.DriverDetailView.as_view(), name='driver-detail'),
+    #     path('create/', views.DriverCreateView.as_view(), name='driver-create'),
+    #     path('<int:pk>/update/', views.DriverUpdateView.as_view(), name='driver-update'),
+    #     path('<int:pk>/delete/', views.DriverDeleteView.as_view(), name='driver-delete'),
+    ])),
 
-    # path('Adres/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('аdres/', include([
+        path('', views.AdresListView.as_view(), name='аdres-list'),
+        path('<int:pk>/', views.AdresDetailView.as_view(), name='аdres-detail'),
+    #     path('create/', views.SportsmanCreateView.as_view(), name='аdres-create'),
+    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='аdres-update'),
+    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='аdres-delete'),
+    ])),
 
-    # path('ExecutorPerson/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('executor-person/', include([
+        path('', views.ExecutorPersonListView.as_view(), name='executor-person-list'),
+        path('<int:pk>/', views.ExecutorPersonDetailView.as_view(), name='executor-person-detail'),
+    #     path('create/', views.SportsmanCreateView.as_view(), name='executor-person-create'),
+    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='executor-person-update'),
+    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='executor-person-delete'),
+    ])),
 
-    # path('ExecutorLegal/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('executor-legal/', include([
+        path('', views.ExecutorLegalListView.as_view(), name='executor-legal-list'),
+        path('<int:pk>/', views.ExecutorLegalDetailView.as_view(), name='executor-legal'),
+    #     path('create/', views.ExecutorLegalCreateView.as_view(), name='executor-legal'),
+    #     path('<int:pk>/update/', views.ExecutorLegalUpdateView.as_view(), name='executor-legal'),
+    #     path('<int:pk>/delete/', views.ExecutorLegalDeleteView.as_view(), name='executor-legal'),
+    ])),
 
-    # path('ClientPerson/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('client-person/', include([
+        path('', views.ClientPersonListView.as_view(), name='client-person-list'),
+        path('<int:pk>/', views.ClientPersonDetailView.as_view(), name='client-person'),
+    #     path('create/', views.ClientPersonView.as_view(), name='sclient-person'),
+    #     path('<int:pk>/update/', views.ClientPersonUpdateView.as_view(), name='client-person'),
+    #     path('<int:pk>/delete/', views.ClientPersonDeleteView.as_view(), name='client-person'),
+    ])),
 
-    # path('ClientLegal/', include([
-    #     path('', views.SportsmanListView.as_view(), name='sportsman-list'),
-    #     path('<int:pk>/', views.SportsmanDetailView.as_view(), name='sportsman-detail'),
-    #     path('create/', views.SportsmanCreateView.as_view(), name='sportsman-create'),
-    #     path('<int:pk>/update/', views.SportsmanUpdateView.as_view(), name='sportsman-update'),
-    #     path('<int:pk>/delete/', views.SportsmanDeleteView.as_view(), name='sportsman-delete'),
-    #     path('<int:pk>/primary/', views.PrimaryCreateView.as_view(), name='sportsman-primary'),
-    #     path('<int:pk>/umo/', views.UMOCreateView.as_view(), name='sportsman-umo'),
-    # ])),
+    path('client-legal/', include([
+        path('', views.ClientLegalListView.as_view(), name='client-legal-list'),
+        path('<int:pk>/', views.ClientLegalDetailView.as_view(), name='client-legal'),
+    #     path('create/', views.ClientLegalCreateView.as_view(), name='client-legal'),
+    #     path('<int:pk>/update/', views.ClientLegalUpdateView.as_view(), name='client-legal'),
+    #     path('<int:pk>/delete/', views.ClientLegalDeleteView.as_view(), name='client-legal'),
+    ])),
 
-
+    path('tariff/', include([
+        path('', views.TariffListView.as_view(), name='tariff-list'),
+        path('<int:pk>/', views.TariffDetailView.as_view(), name='tariff-detail'),
+    #     path('create/', views.TarifCreateView.as_view(), name='tariff-create'),
+    #     path('<int:pk>/update/', views.TarifUpdateView.as_view(), name='tariff-update'),
+    #     path('<int:pk>/delete/', views.TarifDeleteView.as_view(), name='tariff-delete'),
+    ])),
 ]

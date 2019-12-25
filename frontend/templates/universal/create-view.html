@@ -1,0 +1,38 @@
+{% extends settings.TEMPLATE_LAYOUT %}
+{% load i18n static %}
+{% load utils %}
+
+{% block functions %}
+
+{% endblock functions %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form class="form-model" action="" method="POST">
+      {% csrf_token %}
+        <table class="table">
+          {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </table>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Добавить</button>
+        <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}

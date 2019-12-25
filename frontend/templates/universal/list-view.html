@@ -3,7 +3,7 @@
 {% load utils %}
 
 {% block functions %}
-
+  <a class="header__element" href="create/">Добавить</a>
 {% endblock functions %}
 
 
@@ -15,6 +15,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th></th>
             {% for i in fields %}
               <th scope="col">{{ i.verbose_name }}</th>
             {% endfor %}
@@ -22,13 +23,18 @@
         </thead>
         <tbody>
         {% for i in object_list %}
-          <tr>
-            {% for f, v in i.get_fields_and_values %}
+            <tr>
               <th>
-                {{ v }}
+                <a href="{{ i.pk }}/">Подробнее</a>
               </th>
-            {% endfor %}
-          </tr>
+              {% for f, v in i.get_fields_and_values %}
+                <th>
+                  {{ v }}
+                </th>
+              {% endfor %}
+            </tr>
+
+
         {% endfor %}
         </tbody>
       </table>

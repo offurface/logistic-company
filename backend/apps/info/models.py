@@ -5,6 +5,9 @@ class Organization(models.Model):
     name = models.CharField(max_length=100, verbose_name="Сокращенное наименование")
     full_name = models.CharField(max_length=255, verbose_name="Полное наименование")
 
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Organization._meta.fields]
+
     class Meta:
         verbose_name = "Организация"
         verbose_name_plural = "Организации"
@@ -28,6 +31,9 @@ class Goods(models.Model):
 #  Транспорт
 class Transport(models.Model):
     mark = models.CharField(max_length=100, verbose_name="Наименование")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Transport._meta.fields]
 
     class Meta:
         verbose_name = "Транспорт"
@@ -58,22 +64,35 @@ class Driver(models.Model):
     patronymic = models.CharField(max_length=150, verbose_name="Отчество")
     category = models.CharField(max_length=4, choices=DRIVERS_LICENSE, null=True, blank=True, default=None, verbose_name="Категория")
 
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Driver._meta.fields]
+
     class Meta:
         verbose_name = "Водитель"
         verbose_name_plural = "Водители"
+
+
 #  Населенные пункты
 class Adres(models.Model):
     city = models.CharField(max_length=100, verbose_name="Город")
     street = models.CharField(max_length=100, verbose_name="Улица, № Дома")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Adres._meta.fields]
+
     class Meta:
         verbose_name = "Населенные пункт"
         verbose_name_plural = "Населенные пункты"
+
 
 #  Исполнители частные лица
 class ExecutorPerson(models.Model):
     name = models.CharField(max_length=150, verbose_name="Имя")
     surname = models.CharField(max_length=150, verbose_name="Фамилия")
     patronymic = models.CharField(max_length=150, verbose_name="Отчество")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in ExecutorPerson._meta.fields]
 
     class Meta:
         verbose_name = "Физическое лицо"
@@ -83,6 +102,9 @@ class ExecutorPerson(models.Model):
 class ExecutorLegal(models.Model):
     name = models.CharField(max_length=100, verbose_name="Сокращенное наименование")
     full_name = models.CharField(max_length=255, verbose_name="Полное наименование")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in ExecutorLegal._meta.fields]
 
     class Meta:
         verbose_name = "Юридическое лицо"
@@ -97,6 +119,9 @@ class ClientPerson(models.Model):
     inn = models.CharField(max_length=255, verbose_name="ИНН")
     phone = models.CharField(max_length=25, verbose_name="Телефон")
 
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in ClientPerson._meta.fields]
+
     class Meta:
         verbose_name = "Физическое лицо"
         verbose_name_plural = "Физические лица"
@@ -110,6 +135,9 @@ class ClientLegal(models.Model):
     inn = models.CharField(max_length=255, verbose_name="ИНН")
     phone = models.CharField(max_length=25, verbose_name="Телефон")
 
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in ClientLegal._meta.fields]
+
     class Meta:
         verbose_name = "Юридическое лицо"
         verbose_name_plural = "Юридические лица"
@@ -118,6 +146,9 @@ class ClientLegal(models.Model):
 class Tariff(models.Model):
     name = models.CharField(max_length=50, verbose_name="Наименование")
     price = models.DecimalField(max_digits=100, decimal_places=2, default=0, verbose_name="Цена")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Tariff._meta.fields]
 
     class Meta:
         verbose_name = "Тариф"

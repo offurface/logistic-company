@@ -1,0 +1,37 @@
+{% extends settings.TEMPLATE_LAYOUT %}
+{% load i18n static %}
+{% load utils %}
+
+{% block functions %}
+  <a class="header__element" href="update/">Изменить</a>
+  <a class="header__element" href="delete/">Удалить</a>
+{% endblock functions %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <table class="table">
+        <tbody>
+          {% for f, v in object.get_fields_and_values %}
+          <tr>
+            <th>
+              {{ f.verbose_name }}
+            </th>
+            <th>
+              {{ v }}
+            </th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}
