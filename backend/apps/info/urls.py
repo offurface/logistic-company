@@ -20,7 +20,7 @@ urlpatterns = [
         path('<int:pk>/', views.GoodsDetailView.as_view(), name='goods-detail'),
         path('create/', views.GoodsCreateView.as_view(), name='goods-create'),
     #     path('<int:pk>/update/', views.GoodsUpdateView.as_view(), name='goods-update'),
-    #     path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
+        path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
     ])),
 
     path('transport/', include([

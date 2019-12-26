@@ -327,3 +327,15 @@ class TariffCreateView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class GoodsDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Goods, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:goods-list")
