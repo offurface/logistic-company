@@ -34,7 +34,13 @@
               <a class="dropdown-item" href="{% url 'info:tariff-list' %}">Тарифы</a>
             </div>
           </li>
-          <li class="nav-item dropdown active">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'info:client-legal-list' %}">Исполнители</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'info:client-legal-list' %}">Клиенты</a>
+          </li>
+          {% comment %} <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Исполнители
             </a>
@@ -51,7 +57,7 @@
               <a class="dropdown-item" href="{% url 'info:client-legal-list' %}">Клиенты юридические лица</a>
               <a class="dropdown-item" href="{% url 'info:client-person-list' %}">Клиенты физические лица</a>
             </div>
-          </li>
+          </li> {% endcomment %}
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'accounts:logout' %}">Выход</a>
           </li>

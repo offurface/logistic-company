@@ -8,11 +8,11 @@ urlpatterns = [
     path('test/', views.Test.as_view()),
 
     path('order-client/', include([
-        #path('', views.OrganizationListView.as_view(), name='organization-list'),
-        #path('<int:pk>/', views.OrganizationDetailView.as_view(), name='organization-detail'),
+        path('', views.OrderClientListView.as_view(), name='order-client-list'),
+        #path('<int:pk>/', views.OrderClientDetailView.as_view(), name='order-client-detail'),
         path('create/', views.OrderClientCreateView.as_view(), name='organization-create'),
-    #     path('<int:pk>/update/', views.OrganizationUpdateView.as_view(), name='organization-update'),
-    #     path('<int:pk>/delete/', views.OrganizationDeleteView.as_view(), name='organization-delete'),
+    #     path('<int:pk>/update/', views.OrderClientUpdateView.as_view(), name='order-client-update'),
+    #     path('<int:pk>/delete/', views.OrderClientDeleteView.as_view(), name='order-client-delete'),
     ])),
 
     path('organization/', include([
