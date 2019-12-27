@@ -23,6 +23,9 @@ class Goods(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Goods._meta.fields]
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
@@ -35,6 +38,9 @@ class Transport(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Transport._meta.fields]
 
+    def __str__(self):
+        return self.mark
+
     class Meta:
         verbose_name = "Транспорт"
         verbose_name_plural = "Транспортные средства"
@@ -42,22 +48,22 @@ class Transport(models.Model):
 #  Водители
 class Driver(models.Model):
     DRIVERS_LICENSE = [
-    ('A','A'),
-    ('A1','A1'),
-    ('B','B'),
-    ('B1','B1'),
-    ('C','C'),
-    ('C1','C1'),
-    ('D','D'),
-    ('D1','D1'),
-    ('BE','BE'),
-    ('CE','CE'),
-    ('C1E','C1E'),
-    ('DE','DE'),
-    ('D1E','D1E'),
-    ('M','M'),
-    ('Tm','Tm'),
-    ('Tb','Tb'),
+        ('A','A'),
+        ('A1','A1'),
+        ('B','B'),
+        ('B1','B1'),
+        ('C','C'),
+        ('C1','C1'),
+        ('D','D'),
+        ('D1','D1'),
+        ('BE','BE'),
+        ('CE','CE'),
+        ('C1E','C1E'),
+        ('DE','DE'),
+        ('D1E','D1E'),
+        ('M','M'),
+        ('Tm','Tm'),
+        ('Tb','Tb'),
     ]
     name = models.CharField(max_length=150, verbose_name="Имя")
     surname = models.CharField(max_length=150, verbose_name="Фамилия")
@@ -67,18 +73,21 @@ class Driver(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Driver._meta.fields]
 
+    def __str__(self):
+        return self.name + " " + self.surname
+
     class Meta:
         verbose_name = "Водитель"
         verbose_name_plural = "Водители"
 
 
 #  Населенные пункты
-class Adres(models.Model):
+class Address(models.Model):
     city = models.CharField(max_length=100, verbose_name="Город")
     street = models.CharField(max_length=100, verbose_name="Улица, № Дома")
 
     def get_fields_and_values(self):
-        return [(field, field.value_to_string(self)) for field in Adres._meta.fields]
+        return [(field, field.value_to_string(self)) for field in Address._meta.fields]
 
     class Meta:
         verbose_name = "Населенные пункт"
@@ -153,3 +162,60 @@ class Tariff(models.Model):
     class Meta:
         verbose_name = "Тариф"
         verbose_name_plural = "Тарифы"
+
+#  Заказ клиента
+class OrderClient(models.Model):
+    STATE_ORDER = [
+        (1, 'На согласовании'),
+        (2, 'В работе'),
+        (3, 'Выполнен'),
+        (3, 'Отказ клиента'),
+    ]
+
+    date =  models.DateTimeField(verbose_name="Дата добавления")
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Организация")
+
+    client_legal = models.ForeignKey(ClientLegal, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
+    client_person = models.ForeignKey(ClientPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
+    executor_legal = models.ForeignKey(ExecutorLegal, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
+    executor_person = models.ForeignKey(ExecutorPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
+
+    tariff = models.ForeignKey(Tariff, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Тариф")
+
+    date_start =  models.DateTimeField(
+        blank=True,
+        null=True,
+        verbose_name="Дата погрузки"
+    )
+    date_end =  models.DateTimeField(
+        blank=True,
+        null=True,
+        verbose_name="Дата разгрузки",
+    )
+    address_start = models.ForeignKey(
+        Address,
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+        related_name='OrderClientStart',
+        verbose_name="Адрес погрузки",
+    )
+    address_end = models.ForeignKey(
+        Address,
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+        related_name='OrderClientEnd',
+        verbose_name="Адрес разгрузки"
+    )
+
+    state = models.IntegerField(choices=STATE_ORDER, default=1, verbose_name="Состояние заказа")
+
+    transports = models.ManyToManyField(Transport, blank=True, verbose_name="Транспортные средства")
+    goods = models.ManyToManyField(Goods, blank=True, verbose_name="Товары")
+    drivers = models.ManyToManyField(Driver, blank=True, verbose_name="Водители")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in OrderClient._meta.fields]
+
+    class Meta:
+        verbose_name = "Заказ клиента"
+        verbose_name_plural = "Заказы клиентов"

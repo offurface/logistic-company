@@ -1,0 +1,120 @@
+{% extends settings.TEMPLATE_LAYOUT %}
+{% load i18n static %}
+{% load utils %}
+{% load widget_tweaks %}
+
+{% block functions %}
+
+{% endblock functions %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <h3 class="mb-4">Добавить заказ:</h3>
+      <form class="form-model" action="" method="POST">
+      {% csrf_token %}
+
+          <div class="form-row mb-3">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{ form.date.label }}</label>
+                {% render_field form.date class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{ form.state.label }}</label>
+                {% render_field form.state class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{ form.tariff.label }}</label>
+                {% render_field form.tariff class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row  mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ form.organization.label }}</label>
+                {% render_field form.organization class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ form.client_legal.label }}</label>
+                {% render_field form.client_legal class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ form.executor_legal.label }}</label>
+                {% render_field form.executor_legal class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ form.date_start.label }}</label>
+                {% render_field form.date_start class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ form.date_end.label }}</label>
+                {% render_field form.date_end class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ form.address_start.label }}</label>
+                {% render_field form.address_start class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ form.address_end.label }}</label>
+                {% render_field form.address_end class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row justify-content-center mb-5">
+            <div class="col-md-8">
+              <div class="form-group">
+                  <label>{{ form.transports.label }}</label>
+                  {% render_field form.transports class+="form-control" type="text" %}
+                </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                  <label>{{ form.goods.label }}</label>
+                  {% render_field form.goods class+="form-control" type="text" %}
+                </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                  <label>{{ form.drivers.label }}</label>
+                  {% render_field form.drivers class+="form-control" type="text" %}
+                </div>
+            </div>
+          </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Добавить</button>
+        <a href="../" class="btn btn-secondary btn-lg btn-block mb-5">Назад</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}

@@ -7,6 +7,14 @@ urlpatterns = [
 
     path('test/', views.Test.as_view()),
 
+    path('order-client/', include([
+        #path('', views.OrganizationListView.as_view(), name='organization-list'),
+        #path('<int:pk>/', views.OrganizationDetailView.as_view(), name='organization-detail'),
+        path('create/', views.OrderClientCreateView.as_view(), name='organization-create'),
+    #     path('<int:pk>/update/', views.OrganizationUpdateView.as_view(), name='organization-update'),
+    #     path('<int:pk>/delete/', views.OrganizationDeleteView.as_view(), name='organization-delete'),
+    ])),
+
     path('organization/', include([
         path('', views.OrganizationListView.as_view(), name='organization-list'),
         path('<int:pk>/', views.OrganizationDetailView.as_view(), name='organization-detail'),
@@ -20,7 +28,7 @@ urlpatterns = [
         path('<int:pk>/', views.GoodsDetailView.as_view(), name='goods-detail'),
         path('create/', views.GoodsCreateView.as_view(), name='goods-create'),
     #     path('<int:pk>/update/', views.GoodsUpdateView.as_view(), name='goods-update'),
-        path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
+    #     path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
     ])),
 
     path('transport/', include([
@@ -40,11 +48,11 @@ urlpatterns = [
     ])),
 
     path('аdres/', include([
-        path('', views.AdresListView.as_view(), name='аdres-list'),
-        path('<int:pk>/', views.AdresDetailView.as_view(), name='аdres-detail'),
-        path('create/', views.AdresCreateView.as_view(), name='аdres-create'),
-    #     path('<int:pk>/update/', views.AdresUpdateView.as_view(), name='аdres-update'),
-    #     path('<int:pk>/delete/', views.AdresDeleteView.as_view(), name='аdres-delete'),
+        path('', views.AddressListView.as_view(), name='аdres-list'),
+        path('<int:pk>/', views.AddressDetailView.as_view(), name='аdres-detail'),
+        path('create/', views.AddressCreateView.as_view(), name='аdres-create'),
+    #     path('<int:pk>/update/', views.AddressUpdateView.as_view(), name='аdres-update'),
+    #     path('<int:pk>/delete/', views.AddressDeleteView.as_view(), name='аdres-delete'),
     ])),
 
     path('executor-person/', include([

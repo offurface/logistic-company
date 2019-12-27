@@ -15,13 +15,15 @@ class TransportForm(forms.ModelForm):
     class Meta:
         model = models.Transport
         fields = ('__all__')
+
 class DriverForm(forms.ModelForm):
     class Meta:
         model = models.Driver
         fields = ('__all__')
-class AdresForm(forms.ModelForm):
+
+class AddressForm(forms.ModelForm):
     class Meta:
-        model = models.Adres
+        model = models.Address
         fields = ('__all__')
 
 class ExecutorPersonForm(forms.ModelForm):
@@ -33,7 +35,6 @@ class ExecutorLegalForm(forms.ModelForm):
     class Meta:
         model = models.ExecutorLegal
         fields = ('__all__')
-
 
 class ClientPersonForm(forms.ModelForm):
     class Meta:
@@ -50,3 +51,11 @@ class TariffForm(forms.ModelForm):
     class Meta:
         model = models.Tariff
         fields = ('__all__')
+
+
+
+
+class OrderClientForm(forms.ModelForm):
+    class Meta:
+        model = models.OrderClient
+        exclude = ['executor_person','client_person']

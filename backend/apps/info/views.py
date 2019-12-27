@@ -33,6 +33,20 @@ class Test(View):
             'items': [],
             'title': 'Готово',
         })
+
+@method_decorator(login_required, name='dispatch')
+class OrderClientCreateView(CreateView):
+    template_name = "info/order-client/order-client-create.html"
+    form_class = forms.OrderClientForm
+    queryset = models.OrderClient.objects.all()
+    #success_url = "/info/organization/"
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+
+
 @method_decorator(login_required, name='dispatch')
 class OrganizationListView(ListView):
     template_name = "universal/list-view.html"
@@ -74,13 +88,13 @@ class DriverListView(ListView):
         return context
 
 @method_decorator(login_required, name='dispatch')
-class AdresListView(ListView):
+class AddressListView(ListView):
     template_name = "universal/list-view.html"
-    queryset = models.Adres.objects.all()
+    queryset = models.Address.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super(AdresListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Adres._meta.get_fields()
+        context = super(AddressListView, self).get_context_data(**kwargs)
+        context['fields'] = models.Address._meta.get_fields()
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -172,13 +186,13 @@ class DriverDetailView(DetailView):
         return get_object_or_404(models.Driver, pk=pk_)
 
 @method_decorator(login_required, name='dispatch')
-class AdresDetailView(DetailView):
+class AddressDetailView(DetailView):
     template_name = "universal/detail-view.html"
-    queryset = models.Adres.objects.all()
+    queryset = models.Address.objects.all()
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
-        return get_object_or_404(models.Adres, pk=pk_)
+        return get_object_or_404(models.Address, pk=pk_)
 
 @method_decorator(login_required, name='dispatch')
 class ExecutorPersonDetailView(DetailView):
@@ -269,11 +283,11 @@ class DriverCreateView(CreateView):
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class AdresCreateView(CreateView):
+class AddressCreateView(CreateView):
     template_name = "universal/create-view.html"
-    form_class = forms.AdresForm
-    queryset = models.Adres.objects.all()
-    success_url = "/info/adres/"
+    form_class = forms.AddressForm
+    queryset = models.Address.objects.all()
+    success_url = "/info/address/"
 
     def form_valid(self, form):
         return super().form_valid(form)

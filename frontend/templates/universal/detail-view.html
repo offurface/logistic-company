@@ -12,7 +12,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-9">
-      <h3>{% get_verbose_name object %}</h3>
+      <h3 class="mb-4">{% get_verbose_name object %}</h3>
       <table class="table">
         <tbody>
           {% for f, v in object.get_fields_and_values %}
