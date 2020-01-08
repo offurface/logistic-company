@@ -16,6 +16,44 @@ from . import models, forms
 from docxtpl import DocxTemplate
 from config.settings import TEMPLATES_DIR, PUBLIC_DIR
 
+#API
+from rest_framework import generics
+from . import serializers
+
+## TransportFull API ##
+@method_decorator(login_required, name='dispatch')
+class TransportFullCreateAPIView(generics.CreateAPIView):
+    serializer_class = serializers.TransportFullSerializer
+
+@method_decorator(login_required, name='dispatch')
+class TransportFullListAPIView(generics.ListAPIView):
+    serializer_class = serializers.TransportFullSerializer
+    queryset = models.TransportFull.objects.all()
+
+## GoodsCount API ##
+@method_decorator(login_required, name='dispatch')
+class GoodsCountCreateAPIView(generics.CreateAPIView):
+    serializer_class = serializers.GoodsCountSerializer
+
+@method_decorator(login_required, name='dispatch')
+class GoodsCountListAPIView(generics.ListAPIView):
+    serializer_class = serializers.GoodsCountSerializer
+    queryset = models.GoodsCount.objects.all()
+
+## Address API ##
+@method_decorator(login_required, name='dispatch')
+class AddressCreateAPIView(generics.CreateAPIView):
+    serializer_class = serializers.AddressSerializer
+
+@method_decorator(login_required, name='dispatch')
+class AddressListAPIView(generics.ListAPIView):
+    serializer_class = serializers.AddressSerializer
+    queryset = models.Address.objects.all()
+
+# class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class = serializers.StudentDetailSerializer
+#     queryset = Student.objects.all()
+
 @method_decorator(login_required, name='dispatch')
 class Test(View):
     template_name = "universal/docx-create.html"
@@ -34,6 +72,36 @@ class Test(View):
             'title': 'Готово',
         })
 
+
+## Заказы  клиентов ##
+## OrderClient CRUD ##
+@method_decorator(login_required, name='dispatch')
+class OrderClientListView(ListView):
+    #template_name = "info/order-client/order-client-list.html"
+    template_name = "universal/list-view.html"
+    queryset = models.OrderClient.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderClientListView, self).get_context_data(**kwargs)
+        context['fields'] = models.OrderClient._meta.get_fields()
+
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class OrderClientDetailView(DetailView):
+    template_name = "info/order-client/order-client-detail.html"
+    queryset = models.OrderClient.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderClientDetailView, self).get_context_data(**kwargs)
+        context['transport_full'] =  models.TransportFull.objects.filter(order_client_id=self.object.pk)
+        context['GoodsCountForm'] = forms.GoodsCountForm
+        return context
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.OrderClient, pk=pk_)
+
 @method_decorator(login_required, name='dispatch')
 class OrderClientCreateView(CreateView):
     template_name = "info/order-client/order-client-create.html"
@@ -46,7 +114,8 @@ class OrderClientCreateView(CreateView):
 
 
 
-
+## Справочники ListView       ##
+## "universal/list-view.html" ##
 @method_decorator(login_required, name='dispatch')
 class OrganizationListView(ListView):
     template_name = "universal/list-view.html"
@@ -148,7 +217,8 @@ class TariffListView(ListView):
         return context
 
 
-
+## Справочники DetailView       ##
+## "universal/detail-view.html" ##
 @method_decorator(login_required, name='dispatch')
 class OrganizationDetailView(DetailView):
     template_name = "universal/detail-view.html"
@@ -241,7 +311,8 @@ class TariffDetailView(DetailView):
 
 
 
-
+## Справочники CreateView       ##
+## "universal/detail-create.html" ##
 @method_decorator(login_required, name='dispatch')
 class OrganizationCreateView(CreateView):
     template_name = "universal/create-view.html"
@@ -341,6 +412,7 @@ class TariffCreateView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
 
 
 @method_decorator(login_required, name='dispatch')

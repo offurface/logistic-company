@@ -55,6 +55,11 @@ class TariffForm(forms.ModelForm):
 
 
 
+class GoodsCountForm(forms.ModelForm):
+    class Meta:
+        model = models.GoodsCount
+        fields = ('__all__')
+
 class OrderClientForm(forms.ModelForm):
     class Meta:
         model = models.OrderClient

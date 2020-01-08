@@ -30,7 +30,6 @@ class Goods(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
 
-
 #  Транспорт
 class Transport(models.Model):
     mark = models.CharField(max_length=100, verbose_name="Наименование")
@@ -80,7 +79,6 @@ class Driver(models.Model):
         verbose_name = "Водитель"
         verbose_name_plural = "Водители"
 
-
 #  Населенные пункты
 class Address(models.Model):
     city = models.CharField(max_length=100, verbose_name="Город")
@@ -92,7 +90,6 @@ class Address(models.Model):
     class Meta:
         verbose_name = "Населенные пункт"
         verbose_name_plural = "Населенные пункты"
-
 
 #  Исполнители частные лица
 class ExecutorPerson(models.Model):
@@ -134,7 +131,6 @@ class ClientPerson(models.Model):
     class Meta:
         verbose_name = "Физическое лицо"
         verbose_name_plural = "Физические лица"
-
 
 #  Клиенты (юр лица)
 class ClientLegal(models.Model):
@@ -196,22 +192,17 @@ class OrderClient(models.Model):
         Address,
         on_delete=models.SET_NULL,
         blank=True, null=True,
-        related_name='OrderClientStart',
+        related_name='order_client_start',
         verbose_name="Адрес погрузки",
     )
     address_end = models.ForeignKey(
         Address,
         on_delete=models.SET_NULL,
         blank=True, null=True,
-        related_name='OrderClientEnd',
+        related_name='order_client_end',
         verbose_name="Адрес разгрузки"
     )
-
     state = models.IntegerField(choices=STATE_ORDER, default=1, verbose_name="Состояние заказа")
-
-    transports = models.ManyToManyField(Transport, blank=True, verbose_name="Транспортные средства")
-    goods = models.ManyToManyField(Goods, blank=True, verbose_name="Товары")
-    drivers = models.ManyToManyField(Driver, blank=True, verbose_name="Водители")
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in OrderClient._meta.fields]
@@ -219,3 +210,35 @@ class OrderClient(models.Model):
     class Meta:
         verbose_name = "Заказ клиента"
         verbose_name_plural = "Заказы клиентов"
+
+# Загруженный транспорт
+class TransportFull(models.Model):
+    order_client = models.ForeignKey(OrderClient, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Заказ клиента")
+    transport = models.ForeignKey(Transport, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Транспортные средства")
+    drivers = models.ManyToManyField(Driver, blank=True, verbose_name="Водители")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in TransportFull._meta.fields]
+
+    class Meta:
+        verbose_name = "Загружженый автомобиль"
+        verbose_name_plural = "Загруженные автомобили"
+
+#Колличество товара
+class GoodsCount(models.Model):
+    MEASURE = [
+        (1, 'шт.'),
+        (2, 'кг.'),
+        (3, 'т.'),
+    ]
+    transport_full = models.ForeignKey(TransportFull, related_name='goods_count', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Загруженный транспорт")
+    goods = models.ForeignKey(Goods, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Товар")
+    count = models.IntegerField(default=0, verbose_name="Количество")
+    measure = models.IntegerField(choices=MEASURE, default=1, verbose_name="Еденица измерения")
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in GoodsCount._meta.fields]
+
+    class Meta:
+        verbose_name = "Колличество товара"
+        verbose_name_plural = "Колличество товаров"

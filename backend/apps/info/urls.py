@@ -5,11 +5,22 @@ app_name = 'info'
 
 urlpatterns = [
 
-    path('test/', views.Test.as_view()),
+   # path('test/', views.Test.as_view()),
+
+    path('api/', include([
+        path('v1/', include([
+            path('transport-full/all/', views.TransportFullListAPIView.as_view()),
+            path('transport-full/create/', views.TransportFullCreateAPIView.as_view()),
+
+            path('goods-count/all/', views.GoodsCountListAPIView.as_view()),
+            path('goods-count/create/', views.GoodsCountCreateAPIView.as_view()),
+
+        ])),
+    ])),
 
     path('order-client/', include([
         path('', views.OrderClientListView.as_view(), name='order-client-list'),
-        #path('<int:pk>/', views.OrderClientDetailView.as_view(), name='order-client-detail'),
+        path('<int:pk>/', views.OrderClientDetailView.as_view(), name='order-client-detail'),
         path('create/', views.OrderClientCreateView.as_view(), name='organization-create'),
     #     path('<int:pk>/update/', views.OrderClientUpdateView.as_view(), name='order-client-update'),
     #     path('<int:pk>/delete/', views.OrderClientDeleteView.as_view(), name='order-client-delete'),

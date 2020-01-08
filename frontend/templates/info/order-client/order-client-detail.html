@@ -1,0 +1,113 @@
+{% extends settings.TEMPLATE_LAYOUT %}
+{% load i18n static %}
+{% load utils %}
+{% load widget_tweaks %}
+
+{% block functions %}
+  <a class="header__element" href="update/">Изменить</a>
+  <a class="header__element" href="delete/">Удалить</a>
+{% endblock functions %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <h3 class="mb-4">{% get_verbose_name object %}</h3>
+      <table class="table mb-4">
+        <tbody>
+          {% for f, v in object.get_fields_and_values %}
+          <tr>
+            <th>
+              {{ f.verbose_name }}
+            </th>
+            <th>
+              {{ v }}
+            </th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h3>Транспортные средства</h3>
+      <table class="table">
+        <tbody>
+          {% for f in transport_full %}
+          <tr>
+            <th>
+              {{ f.transport.mark }}
+
+              {% for driver in f.drivers.all %}
+                <br>
+                {{ driver.surname }}
+                {{ driver.name }}
+                {{ driver.patronymic }}
+              {% endfor %}
+
+              {% for g in f.goods_count.all %}
+                <br>
+                {{ g.goods }}
+                {{ g.count }}
+                {{ g.get_measure_display }}
+              {% endfor %}
+            </th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
+    </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block custom_scripts %}
+<script>
+  $(document).ready(function() {
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+    // axios.get("http://localhost:8000/info/api/v1/transport-full/all/")
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+      // Swal.fire({
+      //   title: '<strong>HTML <u>example</u></strong>',
+      //   icon: 'info',
+      //   html: '{% render_field GoodsCountForm.count class+="form-control" type="text" %}',
+      //   showCloseButton: true,
+      //   showCancelButton: true,
+      //   focusConfirm: false,
+      //   confirmButtonText:
+      //     'Great!',
+      //   confirmButtonAriaLabel: 'Thumbs up, great!',
+      //   cancelButtonText:
+      //     'Cancel',
+      //   cancelButtonAriaLabel: 'Thumbs down'
+      // });
+  })
+  </script>
+{% endblock custom_scripts %}
+
