@@ -55,6 +55,11 @@ class TariffForm(forms.ModelForm):
 
 
 
+class TransportFullForm(forms.ModelForm):
+    class Meta:
+        model = models.TransportFull
+        exclude = ['order_client',]
+
 class GoodsCountForm(forms.ModelForm):
     class Meta:
         model = models.GoodsCount

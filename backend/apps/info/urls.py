@@ -11,9 +11,11 @@ urlpatterns = [
         path('v1/', include([
             path('transport-full/all/', views.TransportFullListAPIView.as_view()),
             path('transport-full/create/', views.TransportFullCreateAPIView.as_view()),
+            path('transport-full/detail/<int:pk>', views.TransportFullDetailAPIView.as_view()),
 
             path('goods-count/all/', views.GoodsCountListAPIView.as_view()),
             path('goods-count/create/', views.GoodsCountCreateAPIView.as_view()),
+            path('goods-count/detail/<int:pk>', views.GoodsCountDetailAPIView.as_view()),
 
         ])),
     ])),

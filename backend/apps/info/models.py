@@ -168,10 +168,23 @@ class OrderClient(models.Model):
         (3, 'Отказ клиента'),
     ]
 
-    date =  models.DateTimeField(verbose_name="Дата добавления")
-    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Организация")
+    date =  models.DateTimeField(
+        verbose_name="Дата добавления"
+        )
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Организация"
+        )
 
-    client_legal = models.ForeignKey(ClientLegal, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
+    client_legal = models.ForeignKey(
+        ClientLegal,
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+        verbose_name="Клиент"
+    )
     client_person = models.ForeignKey(ClientPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
     executor_legal = models.ForeignKey(ExecutorLegal, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
     executor_person = models.ForeignKey(ExecutorPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")

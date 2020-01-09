@@ -30,6 +30,11 @@ class TransportFullListAPIView(generics.ListAPIView):
     serializer_class = serializers.TransportFullSerializer
     queryset = models.TransportFull.objects.all()
 
+@method_decorator(login_required, name='dispatch')
+class TransportFullDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.TransportFullSerializer
+    queryset = models.TransportFull.objects.all()
+
 ## GoodsCount API ##
 @method_decorator(login_required, name='dispatch')
 class GoodsCountCreateAPIView(generics.CreateAPIView):
@@ -37,6 +42,11 @@ class GoodsCountCreateAPIView(generics.CreateAPIView):
 
 @method_decorator(login_required, name='dispatch')
 class GoodsCountListAPIView(generics.ListAPIView):
+    serializer_class = serializers.GoodsCountSerializer
+    queryset = models.GoodsCount.objects.all()
+
+@method_decorator(login_required, name='dispatch')
+class GoodsCountDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.GoodsCountSerializer
     queryset = models.GoodsCount.objects.all()
 
@@ -50,9 +60,6 @@ class AddressListAPIView(generics.ListAPIView):
     serializer_class = serializers.AddressSerializer
     queryset = models.Address.objects.all()
 
-# class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = serializers.StudentDetailSerializer
-#     queryset = Student.objects.all()
 
 @method_decorator(login_required, name='dispatch')
 class Test(View):
@@ -80,6 +87,7 @@ class OrderClientListView(ListView):
     #template_name = "info/order-client/order-client-list.html"
     template_name = "universal/list-view.html"
     queryset = models.OrderClient.objects.all()
+    success_url = "/info/order-client/"
 
     def get_context_data(self, **kwargs):
         context = super(OrderClientListView, self).get_context_data(**kwargs)
@@ -96,6 +104,8 @@ class OrderClientDetailView(DetailView):
         context = super(OrderClientDetailView, self).get_context_data(**kwargs)
         context['transport_full'] =  models.TransportFull.objects.filter(order_client_id=self.object.pk)
         context['GoodsCountForm'] = forms.GoodsCountForm
+        context['TransportFullForm'] = forms.TransportFullForm
+
         return context
 
     def get_object(self):

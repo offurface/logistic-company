@@ -29,85 +29,215 @@
         </tbody>
       </table>
       <h3>Транспортные средства</h3>
-      <table class="table">
-        <tbody>
-          {% for f in transport_full %}
-          <tr>
-            <th>
-              {{ f.transport.mark }}
+        {% for f in transport_full %}
+          <div class="card mb-3" data-pk="{{ f.pk }}">
+            <div class="card-header">
+              Марка автомобиля: {{ f.transport.mark }}
+              <i class="fa fa-trash-o transport_full_delete" aria-hidden="true" style="color:red;float:right;font-size: 24px;cursor:pointer;"></i>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle text-muted mt-2">Водители:</h6>
 
-              {% for driver in f.drivers.all %}
-                <br>
-                {{ driver.surname }}
-                {{ driver.name }}
-                {{ driver.patronymic }}
-              {% endfor %}
+              <ul class="list-group list-group-flush">
+                {% for driver in f.drivers.all %}
+                  <li class="list-group-item">
+                    {{ driver.surname }}
+                    {{ driver.name }}
+                    {{ driver.patronymic }}
+                  </li>
+                {% endfor %}
+              </ul>
 
-              {% for g in f.goods_count.all %}
-                <br>
-                {{ g.goods }}
-                {{ g.count }}
-                {{ g.get_measure_display }}
-              {% endfor %}
-            </th>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
+              <h6 class="card-subtitle text-muted mt-2">Груз:</h6>
+              <ul class="list-group list-group-flush">
+                {% for g in f.goods_count.all %}
+                  <li class="list-group-item">
+                    {{ g.goods }}
+                    {{ g.count }}
+                    {{ g.get_measure_display }}
+                  </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+            <div class="card-footer">
+              <h6 class="goods_count_add mt-2" style="color:green;cursor:pointer;" data-toggle="modal" data-target="#goods_count"><i class="fa fa-plus-square-o" aria-hidden="true"></i> добавить груз</h6>
+            </div>
+          </div>
+        {% endfor %}
+        <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#transport_full">
+          Добавить транспортное средство
+        </button>
+      <a href="../" class="btn btn-secondary btn-lg btn-block  mb-4">Назад</a>
     </div>
   </div>
 </div>
-<div class="modal" tabindex="-1" role="dialog">
+
+
+
+
+<!-- Modal TransportFull -->
+<div class="modal fade" id="transport_full" tabindex="-1" role="dialog" aria-labelledby="transport_fullLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title" id="transport_fullLabel">Добавить транспортное средство</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <form class="form-model" action="" method="POST">
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ TransportFullForm.transport.label }}</label>
+                {% render_field TransportFullForm.transport class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+          <div class="form-row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ TransportFullForm.drivers.label }}</label>
+                {% render_field TransportFullForm.drivers class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button id="transport_full_add" type="button" class="btn btn-primary">Добавить</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Modal GoodsCount -->
+<div class="modal fade" id="goods_count" tabindex="-1" role="dialog" aria-labelledby="goods_countLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="goods_countLabel">Добавить транспортное средство</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-model" action="" method="POST">
+
+          <div class="form-row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>{{ GoodsCountForm.goods.label }}</label>
+                {% render_field GoodsCountForm.goods class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ GoodsCountForm.count.label }}</label>
+                {% render_field GoodsCountForm.count class+="form-control" type="text" %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ GoodsCountForm.measure.label }}</label>
+                {% render_field GoodsCountForm.measure class+="form-control" type="text" %}
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button id="goods_count_add" type="button" class="btn btn-primary">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
 
 
 {% block custom_scripts %}
 <script>
   $(document).ready(function() {
-    $('#myModal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
-    })
-    // axios.get("http://localhost:8000/info/api/v1/transport-full/all/")
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-      // Swal.fire({
-      //   title: '<strong>HTML <u>example</u></strong>',
-      //   icon: 'info',
-      //   html: '{% render_field GoodsCountForm.count class+="form-control" type="text" %}',
-      //   showCloseButton: true,
-      //   showCancelButton: true,
-      //   focusConfirm: false,
-      //   confirmButtonText:
-      //     'Great!',
-      //   confirmButtonAriaLabel: 'Thumbs up, great!',
-      //   cancelButtonText:
-      //     'Cancel',
-      //   cancelButtonAriaLabel: 'Thumbs down'
-      // });
+
+    var pk_transport_full, pk_order_client = {{ object.pk }};
+
+    $('#transport_full_add').click(function(event) {
+      axios.post("/info/api/v1/transport-full/create/", {
+        "order_client": pk_order_client,
+        "transport": $("#id_transport").val(),
+        "drivers": $("#id_drivers").val()
+      },
+      {
+        headers: {
+          "X-CSRFToken": '{{ csrf_token }}'
+        }
+      })
+      .then((response) => {
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    });
+
+    $('.goods_count_add').click(function(event) {
+      pk_transport_full = $(this).parent().parent().attr("data-pk");
+    });
+
+    $('#goods_count_add').click(function(event) {
+      axios.post("/info/api/v1/goods-count/create/", {
+        "count": $("#id_count").val(),
+        "measure": $("#id_measure").val(),
+        "transport_full": pk_transport_full,
+        "goods": $("#id_goods").val()
+      },
+      {
+        headers: {
+          "X-CSRFToken": '{{ csrf_token }}'
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    });
+
+    $('.transport_full_delete').click(function(event) {
+
+      var pk = $(this).parent().parent().attr("data-pk");
+
+      axios({
+        method: 'delete',
+        url: '/info/api/v1/transport-full/detail/' + pk,
+        headers: {
+          "X-CSRFToken": '{{ csrf_token }}'
+        }
+      })
+      .then((response) => {
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    });
+
   })
   </script>
 {% endblock custom_scripts %}
-
