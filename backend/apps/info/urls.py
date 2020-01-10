@@ -17,6 +17,9 @@ urlpatterns = [
             path('goods-count/create/', views.GoodsCountCreateAPIView.as_view()),
             path('goods-count/detail/<int:pk>', views.GoodsCountDetailAPIView.as_view()),
 
+            path('address/all/', views.AddressListAPIView.as_view()),
+            path('address/create/', views.AddressCreateAPIView.as_view()),
+            #path('address/detail/<int:pk>', views.GoodsCountDetailAPIView.as_view()),
         ])),
     ])),
 

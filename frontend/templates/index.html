@@ -11,32 +11,112 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="jumbotron">
-        <h1 class="display-4">Логистическая компания</h1>
-        <p class="lead">Это простой пример блока с компонентом в стиле jumbotron для привлечения дополнительного внимания к содержанию или информации.</p>
-        <hr class="my-4">
-        <p>Использются служебные классы для типографики и расстояния содержимого в контейнере большего размера.</p>
-        <p class="lead">
-          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <div class="btn-group" role="group">
-              <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Начать работу
-              </button>
-              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item" href="#">Перейти к заказам</a>
-                <a class="dropdown-item" href="#">Рэйтинг</a>
-              </div>
-            </div>
-          </div>
-        </p>
-      </div>
+      <div id="arc-gis-map"></div>
     </div>
   </div>
 
 </div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Добавить адрес</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-model" action="" method="POST">
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Адрес</label>
+                <input id="address" class="form-control mb-4" type="text">
+                <h5>Долгота <span id="longitude"></span>, Широта <span id="latitude"></span>.</h5>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button id="address_add" type="button" class="btn btn-primary">Добавить адрес</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
 
 
-{% block footer %}
+{% block custom_scripts %}
+<script>
+  $(document).ready(function() {
 
-{% endblock footer %}
+      require([
+        "esri/Map",
+        "esri/views/MapView"
+      ], function(Map, MapView) {
+
+
+        function showCoordinates(pt) {
+          var coords = {
+            "latitude": pt.latitude.toFixed(5),
+            "longitude": pt.longitude.toFixed(5)
+          };
+          return coords;
+        }
+
+
+        var map = new Map({
+          basemap: "topo-vector"
+        });
+
+        var view = new MapView({
+          container: "arc-gis-map",
+          map: map,
+          center: [39.72776, 47.23143],// long and lat
+          zoom: 12
+        });
+
+        view.watch("stationary", function(isStationary) {
+          showCoordinates(view.center);
+        });
+
+        view.on("click", function(evt) {
+          coords = showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
+          $('#latitude').text(coords.latitude);
+          $('#longitude').text(coords.longitude);
+          $('#exampleModalCenter').modal();
+        });
+
+        $('#address_add').click(function(event) {
+        axios.post("/info/api/v1/address/create/", {
+          "label": $("#address").val(),
+          "lon": $('#longitude').text(),
+          "lat": $("#latitude").text()
+        },
+        {
+          headers: {
+            "X-CSRFToken": '{{ csrf_token }}'
+          }
+        })
+        .then((response) => {
+          location.reload();
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    });
+
+      });
+
+
+
+
+  })
+  </script>
+{% endblock custom_scripts %}

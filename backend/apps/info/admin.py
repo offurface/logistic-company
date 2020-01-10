@@ -8,5 +8,6 @@ admin.site.register([
     models.TransportFull,
     models.GoodsCount,
     models.Driver,
+    models.Address,
 
     ])

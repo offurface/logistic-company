@@ -81,8 +81,9 @@ class Driver(models.Model):
 
 #  Населенные пункты
 class Address(models.Model):
-    city = models.CharField(max_length=100, verbose_name="Город")
-    street = models.CharField(max_length=100, verbose_name="Улица, № Дома")
+    label = models.CharField(max_length=255, verbose_name="Адрес", default="")
+    lat = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True, verbose_name="Широта")
+    lon = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True, verbose_name="Долгота")
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Address._meta.fields]
