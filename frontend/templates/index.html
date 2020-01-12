@@ -54,12 +54,68 @@
 <script>
   $(document).ready(function() {
 
+
+
       require([
         "esri/Map",
-        "esri/views/MapView"
-      ], function(Map, MapView) {
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer"
+      ], function(Map, MapView, Graphic, GraphicsLayer) {
 
 
+
+    function RenderPoints(layer) {
+      console.log("RenderPoints");
+      axios.get("/info/api/v1/address/all/")
+      .then((response) => {
+        console.log(response);
+
+        for (let i = 0; i < response.data.length; i++) {
+          const e = response.data[i];
+          var text = {
+            geometry: {
+              type: "point",
+              longitude: e.lon,
+              latitude: e.lat
+            },
+            symbol: {
+              type: "text",
+              color: [25,25,25],
+              haloColor: [255,255,255],
+              haloSize: "1px",
+              text: e.label,
+              xoffset: 0,
+              yoffset: 12,
+              font: {
+                size: 10
+              }
+            }
+          };
+          var marker = {
+            geometry: {
+              type: "point",
+              longitude: e.lon,
+              latitude: e.lat
+            },
+            symbol: {
+              type: "simple-marker",
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 1
+              }
+            }
+          };
+          layer.add(text);
+          layer.add(marker);
+        };
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
         function showCoordinates(pt) {
           var coords = {
             "latitude": pt.latitude.toFixed(5),
@@ -73,6 +129,9 @@
           basemap: "topo-vector"
         });
 
+        var GraphicsLayer = new GraphicsLayer();
+        map.add(GraphicsLayer);
+
         var view = new MapView({
           container: "arc-gis-map",
           map: map,
@@ -80,6 +139,16 @@
           zoom: 12
         });
 
+      //   var SimpleMarkerSymbol = {
+      //    type: "simple-marker",
+      //    color: [226, 119, 40],  // orange
+      //    outline: {
+      //      color: [255, 255, 255], // white
+      //      width: 1
+      //    }
+      //  };
+
+        RenderPoints(GraphicsLayer);/////////////
         view.watch("stationary", function(isStationary) {
           showCoordinates(view.center);
         });
@@ -109,6 +178,7 @@
         .catch((error) => {
           console.log(error);
         });
+
 
     });
 
