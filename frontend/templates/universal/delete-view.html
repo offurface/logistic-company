@@ -10,17 +10,21 @@
 {% block content %}
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-9">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <form class="form-model" action="" method="POST">
         {% csrf_token %}
-        <h3 class="form-model__message">
+        <h3 class="form-model__message mb-4" align="center">
           Вы действительно хотите удалить объект?
         </h3>
 
-        <div class="form-model__btn-box">
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Удалить</button>
-          <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
+        <div class="row">
+          <div class="col">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Удалить</button>
+          </div>
+          <div class="col">
+            <a href="../" class="btn btn-secondary btn-lg btn-block">Назад</a>
+          </div>
         </div>
       </form>
     </div>

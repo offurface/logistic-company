@@ -122,7 +122,29 @@ class OrderClientCreateView(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+@method_decorator(login_required, name='dispatch')
+class OrderClientUpdateView(UpdateView):
+    template_name = "info/order-client/order-client-create.html"
+    form_class = forms.OrderClientForm
+    queryset = models.OrderClient.objects.all()
 
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.OrderClient, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class OrderClientDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.OrderClient, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:order-client-list")
 
 ## Справочники ListView       ##
 ## "universal/list-view.html" ##
@@ -168,7 +190,7 @@ class DriverListView(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class AddressListView(ListView):
-    template_name = "universal/list-view.html"
+    template_name = "info/address/address-list.html"
     queryset = models.Address.objects.all()
 
     def get_context_data(self, **kwargs):
@@ -321,6 +343,7 @@ class TariffDetailView(DetailView):
 
 
 
+
 ## Справочники CreateView       ##
 ## "universal/detail-create.html" ##
 @method_decorator(login_required, name='dispatch')
@@ -425,6 +448,20 @@ class TariffCreateView(CreateView):
 
 
 
+
+## Справочники DeleteView       ##
+## "universal/detail-create.html" ##
+@method_decorator(login_required, name='dispatch')
+class OrganizationDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Organization, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:organization-list")
+
 @method_decorator(login_required, name='dispatch')
 class GoodsDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
@@ -435,3 +472,109 @@ class GoodsDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("info:goods-list")
+
+@method_decorator(login_required, name='dispatch')
+class TransportDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Transport, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:transport-list")
+
+@method_decorator(login_required, name='dispatch')
+class DriverDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Driver, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:driver-list")
+
+@method_decorator(login_required, name='dispatch')
+class AddressDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Address, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:address-list")
+
+@method_decorator(login_required, name='dispatch')
+class ExecutorPersonDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ExecutorPerson, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:executor-person-list")
+
+@method_decorator(login_required, name='dispatch')
+class ExecutorLegalDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ExecutorLegal, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:executor-legal-list")
+
+@method_decorator(login_required, name='dispatch')
+class ClientPersonDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ClientPerson, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:client-person-list")
+
+@method_decorator(login_required, name='dispatch')
+class ClientLegalDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ClientLegal, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:client-legal-list")
+
+@method_decorator(login_required, name='dispatch')
+class TariffDeleteView(DeleteView):
+    template_name = "universal/delete-view.html"
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Tariff, pk=pk_)
+
+    def get_success_url(self):
+        return reverse("info:tariff-list")
+
+
+
+
+
+
+# @method_decorator(login_required, name='dispatch')
+# class OrganizationUpdateView(UpdateView):
+#     template_name = "info/order-client/order-client-create.html"
+#     form_class = forms.OrderClientForm
+#     queryset = models.OrderClient.objects.all()
+
+#     def form_valid(self, form):
+#         return super().form_valid(form)
+
+#     def get_object(self):
+#         pk_ = self.kwargs.get("pk")
+#         return get_object_or_404(models.OrderClient, pk=pk_)

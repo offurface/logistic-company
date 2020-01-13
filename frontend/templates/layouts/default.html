@@ -38,10 +38,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Главная</a>
+            <a class="nav-link" href="/">Главная</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'info:order-client-list' %}">Заказы</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'info:аddress-list' %}">Адреса</a>
           </li>
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +55,6 @@
               <a class="dropdown-item" href="{% url 'info:goods-list' %}">Товары</a>
               <a class="dropdown-item" href="{% url 'info:transport-list' %}">Транспорт</a>
               <a class="dropdown-item" href="{% url 'info:driver-list' %}">Водители</a>
-              <a class="dropdown-item" href="{% url 'info:аdres-list' %}">Населенные пункты</a>
               <a class="dropdown-item" href="{% url 'info:tariff-list' %}">Тарифы</a>
             </div>
           </li>
@@ -111,15 +113,5 @@
 
   {% block custom_scripts %}
   {% endblock custom_scripts %}
-<script>
-// $(document).ready(function() {
-//   axios.get("http://localhost:8000/info/api/v1/transport-full/all/")
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// })
-</script>
+
 {% endblock bottom %}

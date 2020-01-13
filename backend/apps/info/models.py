@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 #  Организации
 class Organization(models.Model):
@@ -7,6 +9,9 @@ class Organization(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Organization._meta.fields]
+
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:organization-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Организация"
@@ -23,6 +28,9 @@ class Goods(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Goods._meta.fields]
 
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:goods-detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.name
 
@@ -36,6 +44,9 @@ class Transport(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Transport._meta.fields]
+
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:transport-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.mark
@@ -72,6 +83,9 @@ class Driver(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Driver._meta.fields]
 
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:driver-detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.name + " " + self.surname
 
@@ -88,6 +102,9 @@ class Address(models.Model):
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Address._meta.fields]
 
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:аdres-detail', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Населенные пункт"
         verbose_name_plural = "Населенные пункты"
@@ -100,7 +117,8 @@ class ExecutorPerson(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ExecutorPerson._meta.fields]
-
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:executor-person-detail', kwargs={'pk': self.pk})
     class Meta:
         verbose_name = "Физическое лицо"
         verbose_name_plural = "Физические лица"
@@ -112,6 +130,9 @@ class ExecutorLegal(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ExecutorLegal._meta.fields]
+
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:executor-legal-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Юридическое лицо"
@@ -128,7 +149,8 @@ class ClientPerson(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ClientPerson._meta.fields]
-
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:client-person-detail', kwargs={'pk': self.pk})
     class Meta:
         verbose_name = "Физическое лицо"
         verbose_name_plural = "Физические лица"
@@ -143,7 +165,8 @@ class ClientLegal(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ClientLegal._meta.fields]
-
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:client-legal-detail', kwargs={'pk': self.pk})
     class Meta:
         verbose_name = "Юридическое лицо"
         verbose_name_plural = "Юридические лица"
@@ -155,7 +178,8 @@ class Tariff(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Tariff._meta.fields]
-
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:tariff-detail', kwargs={'pk': self.pk})
     class Meta:
         verbose_name = "Тариф"
         verbose_name_plural = "Тарифы"
@@ -217,7 +241,8 @@ class OrderClient(models.Model):
         verbose_name="Адрес разгрузки"
     )
     state = models.IntegerField(choices=STATE_ORDER, default=1, verbose_name="Состояние заказа")
-
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('info:order-client-detail', kwargs={'pk': self.pk})
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in OrderClient._meta.fields]
 
