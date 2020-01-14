@@ -254,12 +254,14 @@
     /**
     * MAP
     */
-          require([
+    require([
       "esri/Map",
       "esri/views/MapView",
       "esri/Graphic",
-      "esri/layers/GraphicsLayer"
-    ], function(Map, MapView, Graphic, GraphicsLayer) {
+      "esri/layers/GraphicsLayer",
+      "esri/tasks/RouteTask",
+      "esri/core/Collection"
+    ], function(Map, MapView, Graphic, GraphicsLayer, RouteTask,Collection) {
 
     function RenderPoints(layer) {
       axios.get("/info/api/v1/address/all/")
@@ -321,7 +323,7 @@
     var map = new Map({
       basemap: "osm"
     });
-    console.log(map.allLayers);
+
     var GraphicsLayer = new GraphicsLayer();
     map.add(GraphicsLayer);
 
@@ -337,32 +339,37 @@
       showCoordinates(view.center);
     });
 
-    view.on("click", function(evt) {
-      coords = showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
-      $('#latitude').text(coords.latitude);
-      $('#longitude').text(coords.longitude);
-      $('#exampleModalCenter').modal();
-    });
 
-    $('#address_add').click(function(event) {
-      axios.post("/info/api/v1/address/create/", {
-        "label": $("#address").val(),
-        "lon": $('#longitude').text(),
-        "lat": $("#latitude").text()
-      },
-      {
-        headers: {
-          "X-CSRFToken": '{{ csrf_token }}'
-        }
-      })
-      .then((response) => {
-        location.reload();
-        RenderPoints(GraphicsLayer);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    var graphics = GraphicsLayer.graphics;
+    console.log(graphics);
+    var graphics_new = graphics.filter(function(item, index){
+      console.log(item.geometry);
+      if(item.geometry['type']==='point')
+        return true;
+      return false;
     });
+    console.log(graphics_new);
+
+    function addStop(event) {
+
+      var stop1 = new Graphic(event.mapPoint, stopSymbol);
+      var stop1 = new Graphic(event.mapPoint, stopSymbol);
+
+
+      routeParams.stops.features.push(stop1);
+
+      if (routeParams.stops.features.length >= 2) {
+        routeTask.solve(routeParams).then(showRoute);
+        lastStop = routeParams.stops.features.splice(0, 1)[0];
+      }
+    };
+
+  function showRoute(data) {
+    var routeResult = data.routeResults[0].route;
+    routeResult.symbol = routeSymbol;
+    GraphicsLayer.add(routeResult);
+  }
+
 
   });
 

@@ -117,6 +117,7 @@ class ExecutorPerson(models.Model):
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ExecutorPerson._meta.fields]
+
     def get_absolute_url(self,*args,**kwargs):
         return reverse('info:executor-person-detail', kwargs={'pk': self.pk})
     class Meta:
@@ -281,3 +282,18 @@ class GoodsCount(models.Model):
     class Meta:
         verbose_name = "Колличество товара"
         verbose_name_plural = "Колличество товаров"
+
+#Путевой лист
+class Waybill(models.Model):
+
+
+
+    # def get_absolute_url(self,*args,**kwargs):
+    #     return reverse('info:waybill-detail', kwargs={'pk': self.pk})
+
+    def get_fields_and_values(self):
+        return [(field, field.value_to_string(self)) for field in Waybill._meta.fields]
+
+    class Meta:
+        verbose_name = "Путевой лист"
+        verbose_name_plural = "Путевые листы"

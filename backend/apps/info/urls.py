@@ -35,7 +35,7 @@ urlpatterns = [
         path('', views.OrganizationListView.as_view(), name='organization-list'),
         path('<int:pk>/', views.OrganizationDetailView.as_view(), name='organization-detail'),
         path('create/', views.OrganizationCreateView.as_view(), name='organization-create'),
-    #     path('<int:pk>/update/', views.OrganizationUpdateView.as_view(), name='organization-update'),
+        path('<int:pk>/update/', views.OrganizationUpdateView.as_view(), name='organization-update'),
         path('<int:pk>/delete/', views.OrganizationDeleteView.as_view(), name='organization-delete'),
     ])),
 
@@ -43,7 +43,7 @@ urlpatterns = [
         path('', views.GoodsListView.as_view(), name='goods-list'),
         path('<int:pk>/', views.GoodsDetailView.as_view(), name='goods-detail'),
         path('create/', views.GoodsCreateView.as_view(), name='goods-create'),
-    #     path('<int:pk>/update/', views.GoodsUpdateView.as_view(), name='goods-update'),
+        path('<int:pk>/update/', views.GoodsUpdateView.as_view(), name='goods-update'),
         path('<int:pk>/delete/', views.GoodsDeleteView.as_view(), name='goods-delete'),
     ])),
 
@@ -51,7 +51,7 @@ urlpatterns = [
         path('', views.TransportListView.as_view(), name='transport-list'),
         path('<int:pk>/', views.TransportDetailView.as_view(), name='transport-detail'),
         path('create/', views.TransportCreateView.as_view(), name='transport-create'),
-    #     path('<int:pk>/update/', views.TransportUpdateView.as_view(), name='transport-update'),
+        path('<int:pk>/update/', views.TransportUpdateView.as_view(), name='transport-update'),
         path('<int:pk>/delete/', views.TransportDeleteView.as_view(), name='transport-delete'),
     ])),
 
@@ -59,15 +59,16 @@ urlpatterns = [
         path('', views.DriverListView.as_view(), name='driver-list'),
         path('<int:pk>/', views.DriverDetailView.as_view(), name='driver-detail'),
         path('create/', views.DriverCreateView.as_view(), name='driver-create'),
-    #     path('<int:pk>/update/', views.DriverUpdateView.as_view(), name='driver-update'),
+        path('<int:pk>/update/', views.DriverUpdateView.as_view(), name='driver-update'),
         path('<int:pk>/delete/', views.DriverDeleteView.as_view(), name='driver-delete'),
     ])),
 
     path('аddress/', include([
         path('', views.AddressListView.as_view(), name='аddress-list'),
+        path('map/', views.AddressMapView.as_view(), name='аddress-map'),
         path('<int:pk>/', views.AddressDetailView.as_view(), name='аdres-detail'),
     #     path('create/', views.AddressCreateView.as_view(), name='аdres-create'),
-    #     path('<int:pk>/update/', views.AddressUpdateView.as_view(), name='аdres-update'),
+        path('<int:pk>/update/', views.AddressUpdateView.as_view(), name='аdres-update'),
         path('<int:pk>/delete/', views.AddressDeleteView.as_view(), name='аdres-delete'),
     ])),
 
@@ -83,7 +84,7 @@ urlpatterns = [
         path('', views.ExecutorLegalListView.as_view(), name='executor-legal-list'),
         path('<int:pk>/', views.ExecutorLegalDetailView.as_view(), name='executor-legal-detail'),
         path('create/', views.ExecutorLegalCreateView.as_view(), name='executor-legal-create'),
-    #     path('<int:pk>/update/', views.ExecutorLegalUpdateView.as_view(), name='executor-legal-update'),
+        path('<int:pk>/update/', views.ExecutorLegalUpdateView.as_view(), name='executor-legal-update'),
         path('<int:pk>/delete/', views.ExecutorLegalDeleteView.as_view(), name='executor-legal-delete'),
     ])),
 
@@ -91,7 +92,7 @@ urlpatterns = [
         path('', views.ClientPersonListView.as_view(), name='client-person-list'),
         path('<int:pk>/', views.ClientPersonDetailView.as_view(), name='client-person-detail'),
         path('create/', views.ClientPersonCreateView.as_view(), name='sclient-person-create'),
-    #     path('<int:pk>/update/', views.ClientPersonUpdateView.as_view(), name='client-person-update'),
+        #path('<int:pk>/update/', views.ClientPersonUpdateView.as_view(), name='client-person-update'),
         path('<int:pk>/delete/', views.ClientPersonDeleteView.as_view(), name='client-person-delete'),
     ])),
 
@@ -99,7 +100,7 @@ urlpatterns = [
         path('', views.ClientLegalListView.as_view(), name='client-legal-list'),
         path('<int:pk>/', views.ClientLegalDetailView.as_view(), name='client-legal-detail'),
         path('create/', views.ClientLegalCreateView.as_view(), name='client-legal-create'),
-    #     path('<int:pk>/update/', views.ClientLegalUpdateView.as_view(), name='client-legal-update'),
+        path('<int:pk>/update/', views.ClientLegalUpdateView.as_view(), name='client-legal-update'),
         path('<int:pk>/delete/', views.ClientLegalDeleteView.as_view(), name='client-legal-delete'),
     ])),
 
@@ -107,7 +108,7 @@ urlpatterns = [
         path('', views.TariffListView.as_view(), name='tariff-list'),
         path('<int:pk>/', views.TariffDetailView.as_view(), name='tariff-detail'),
         path('create/', views.TariffCreateView.as_view(), name='tariff-create'),
-    #     path('<int:pk>/update/', views.TarifUpdateView.as_view(), name='tariff-update'),
+        path('<int:pk>/update/', views.TariffUpdateView.as_view(), name='tariff-update'),
         path('<int:pk>/delete/', views.TariffDeleteView.as_view(), name='tariff-delete'),
     ])),
 ]

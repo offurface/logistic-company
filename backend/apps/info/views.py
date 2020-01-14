@@ -91,7 +91,10 @@ class OrderClientListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderClientListView, self).get_context_data(**kwargs)
-        context['fields'] = models.OrderClient._meta.get_fields()
+        context['fields'] = []
+        for f in models.OrderClient._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
 
         return context
 
@@ -155,7 +158,10 @@ class OrganizationListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(OrganizationListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Organization._meta.get_fields()
+        context['fields'] = []
+        for f in models.Organization._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -165,7 +171,10 @@ class GoodsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(GoodsListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Goods._meta.get_fields()
+        context['fields'] = []
+        for f in models.Goods._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -175,7 +184,10 @@ class TransportListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TransportListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Transport._meta.get_fields()
+        context['fields'] = []
+        for f in models.Transport._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -185,17 +197,32 @@ class DriverListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DriverListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Driver._meta.get_fields()
+        context['fields'] = []
+        for f in models.Driver._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
 class AddressListView(ListView):
-    template_name = "info/address/address-list.html"
+    template_name = "universal/list-view.html"
     queryset = models.Address.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(AddressListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Address._meta.get_fields()
+        context['fields'] = []
+        for f in models.Address._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class AddressMapView(ListView):
+    template_name = "info/address/address-map.html"
+    queryset = models.Address.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(AddressMapView, self).get_context_data(**kwargs)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -205,7 +232,10 @@ class ExecutorPersonListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ExecutorPersonListView, self).get_context_data(**kwargs)
-        context['fields'] = models.ExecutorPerson._meta.get_fields()
+        context['fields'] = []
+        for f in models.ExecutorPerson._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -215,7 +245,10 @@ class ExecutorLegalListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ExecutorLegalListView, self).get_context_data(**kwargs)
-        context['fields'] = models.ExecutorLegal._meta.get_fields()
+        context['fields'] = []
+        for f in models.ExecutorLegal._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -225,7 +258,10 @@ class ClientPersonListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientPersonListView, self).get_context_data(**kwargs)
-        context['fields'] = models.ClientPerson._meta.get_fields()
+        context['fields'] = []
+        for f in models.ClientPerson._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -235,7 +271,10 @@ class ClientLegalListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientLegalListView, self).get_context_data(**kwargs)
-        context['fields'] = models.ClientLegal._meta.get_fields()
+        context['fields'] = []
+        for f in models.ClientLegal._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -245,7 +284,10 @@ class TariffListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TariffListView, self).get_context_data(**kwargs)
-        context['fields'] = models.Tariff._meta.get_fields()
+        context['fields'] = []
+        for f in models.Tariff._meta.get_fields():
+            if hasattr(f, 'verbose_name'):
+                context['fields'].append(f.verbose_name)
         return context
 
 
@@ -566,15 +608,119 @@ class TariffDeleteView(DeleteView):
 
 
 
-# @method_decorator(login_required, name='dispatch')
-# class OrganizationUpdateView(UpdateView):
-#     template_name = "info/order-client/order-client-create.html"
-#     form_class = forms.OrderClientForm
-#     queryset = models.OrderClient.objects.all()
+@method_decorator(login_required, name='dispatch')
+class OrganizationUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.OrganizationForm
+    queryset = models.Organization.objects.all()
 
-#     def form_valid(self, form):
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        return super().form_valid(form)
 
-#     def get_object(self):
-#         pk_ = self.kwargs.get("pk")
-#         return get_object_or_404(models.OrderClient, pk=pk_)
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Organization, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class GoodsUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.GoodsForm
+    queryset = models.Goods.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Goods, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class TransportUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.TransportForm
+    queryset = models.Transport.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Transport, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class DriverUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.DriverForm
+    queryset = models.Driver.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Driver, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class AddressUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.AddressForm
+    queryset = models.Address.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Address, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class DriverUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.DriverForm
+    queryset = models.Driver.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Driver, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class ExecutorLegalUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.ExecutorLegalForm
+    queryset = models.ExecutorLegal.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ExecutorLegal, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class ClientLegalUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.ClientLegalForm
+    queryset = models.ClientLegal.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.ClientLegal, pk=pk_)
+
+@method_decorator(login_required, name='dispatch')
+class TariffUpdateView(UpdateView):
+    template_name = "universal/create-view.html"
+    form_class = forms.TariffForm
+    queryset = models.Tariff.objects.all()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_object(self):
+        pk_ = self.kwargs.get("pk")
+        return get_object_or_404(models.Tariff, pk=pk_)

@@ -18,13 +18,14 @@
       <table class="table">
         <thead>
           <tr>
+            <th></th>
             {% for i in fields %}
-              <th scope="col">{{ i.verbose_name }}</th>
+              <th scope="col">{{ i }}</th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
-        {% for i in object_list %}
+          {% for i in object_list %}
             <tr>
               <th>
                 <a href="{{ i.pk }}/">Подробнее</a>
@@ -35,14 +36,11 @@
                 </th>
               {% endfor %}
             </tr>
-
-
-        {% endfor %}
+          {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
-
 </div>
 {% endblock content %}
 

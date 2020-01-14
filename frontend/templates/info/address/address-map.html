@@ -10,6 +10,9 @@
 <div class="container-fluid">
 
   <div class="row">
+    <div class="col-md-6">
+      <h3>Для добавления адреса кликните на любую точку карты.</h3>
+    </div>
     <div class="col-md-12">
       <div id="arc-gis-map"></div>
     </div>
@@ -55,11 +58,16 @@
 $(document).ready(function() {
 
     require([
+      "esri/geometry/Polyline",
+      "esri/geometry/support/webMercatorUtils",
+      "esri/geometry/support/geodesicUtils",
+
       "esri/Map",
       "esri/views/MapView",
       "esri/Graphic",
-      "esri/layers/GraphicsLayer"
-    ], function(Map, MapView, Graphic, GraphicsLayer) {
+      "esri/layers/GraphicsLayer",
+      "esri/tasks/support/LinearUnit"
+    ], function(Polyline, webMercatorUtils, geodesicUtils, Map, MapView, Graphic, GraphicsLayer, LinearUnit) {
 
     function RenderPoints(layer) {
       axios.get("/info/api/v1/address/all/")
@@ -163,6 +171,14 @@ $(document).ready(function() {
         console.log(error);
       });
     });
+
+    var polyline = {
+      "paths":[[[3997030.6690969253, 7444299.320646087], [3996951.455397143, 7444142.154020177]]],
+      "spatialReference":{"wkid":102100}
+    };
+    polyline = new Polyline(polyline);
+    polyline = webMercatorUtils.webMercatorToGeographic(polyline);
+    console.log(geodesicUtils.geodesicLengths([polyline], "kilometers"));
 
   });
 })
