@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import (
@@ -496,112 +496,92 @@ class TariffCreateView(CreateView):
 @method_decorator(login_required, name='dispatch')
 class OrganizationDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Organization, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:organization-list")
-
 @method_decorator(login_required, name='dispatch')
 class GoodsDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Goods, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:goods-list")
-
 @method_decorator(login_required, name='dispatch')
 class TransportDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Transport, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:transport-list")
-
 @method_decorator(login_required, name='dispatch')
 class DriverDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Driver, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:driver-list")
-
 @method_decorator(login_required, name='dispatch')
 class AddressDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Address, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:address-list")
-
 @method_decorator(login_required, name='dispatch')
 class ExecutorPersonDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.ExecutorPerson, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:executor-person-list")
-
 @method_decorator(login_required, name='dispatch')
 class ExecutorLegalDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.ExecutorLegal, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:executor-legal-list")
-
 @method_decorator(login_required, name='dispatch')
 class ClientPersonDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.ClientPerson, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:client-person-list")
-
 @method_decorator(login_required, name='dispatch')
 class ClientLegalDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.ClientLegal, pk=pk_)
 
-    def get_success_url(self):
-        return reverse("info:client-legal-list")
-
 @method_decorator(login_required, name='dispatch')
 class TariffDeleteView(DeleteView):
     template_name = "universal/delete-view.html"
+    success_url = "../../"
 
     def get_object(self):
         pk_ = self.kwargs.get("pk")
         return get_object_or_404(models.Tariff, pk=pk_)
-
-    def get_success_url(self):
-        return reverse("info:tariff-list")
 
 
 

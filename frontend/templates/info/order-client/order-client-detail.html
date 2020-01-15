@@ -10,9 +10,9 @@
 
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-6">
       <h3 class="mb-4">{% get_verbose_name object %}</h3>
       <table class="table mb-4">
         <tbody>
@@ -29,14 +29,17 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="arc-gis-map"></div>
+    <div class="col-md-5">
+      <div class="order-client-map">
+        <div id="arc-gis-map"></div>
+      </div>
     </div>
   </div>
+  <div class="row">
+
+  </div>
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-6">
       <h3>Транспортные средства</h3>
         {% for f in transport_full %}
           <div class="card mb-3" data-pk="{{ f.pk }}">
@@ -260,8 +263,8 @@
       "esri/Graphic",
       "esri/layers/GraphicsLayer",
       "esri/tasks/RouteTask",
-      "esri/core/Collection"
-    ], function(Map, MapView, Graphic, GraphicsLayer, RouteTask,Collection) {
+
+    ], function(Map, MapView, Graphic, GraphicsLayer, RouteTask) {
 
     function RenderPoints(layer) {
       axios.get("/info/api/v1/address/all/")
@@ -305,20 +308,11 @@
           layer.add(text);
           layer.add(marker);
         };
-
       })
       .catch((error) => {
         console.log(error);
       });
     };
-
-    function showCoordinates(pt) {
-      var coords = {
-        "latitude": pt.latitude.toFixed(5),
-        "longitude": pt.longitude.toFixed(5)
-      };
-      return coords;
-    }
 
     var map = new Map({
       basemap: "osm"
@@ -326,6 +320,7 @@
 
     var GraphicsLayer = new GraphicsLayer();
     map.add(GraphicsLayer);
+
 
     var view = new MapView({
       container: "arc-gis-map",
@@ -335,41 +330,6 @@
     });
 
     RenderPoints(GraphicsLayer);
-    view.watch("stationary", function(isStationary) {
-      showCoordinates(view.center);
-    });
-
-
-    var graphics = GraphicsLayer.graphics;
-    console.log(graphics);
-    var graphics_new = graphics.filter(function(item, index){
-      console.log(item.geometry);
-      if(item.geometry['type']==='point')
-        return true;
-      return false;
-    });
-    console.log(graphics_new);
-
-    function addStop(event) {
-
-      var stop1 = new Graphic(event.mapPoint, stopSymbol);
-      var stop1 = new Graphic(event.mapPoint, stopSymbol);
-
-
-      routeParams.stops.features.push(stop1);
-
-      if (routeParams.stops.features.length >= 2) {
-        routeTask.solve(routeParams).then(showRoute);
-        lastStop = routeParams.stops.features.splice(0, 1)[0];
-      }
-    };
-
-  function showRoute(data) {
-    var routeResult = data.routeResults[0].route;
-    routeResult.symbol = routeSymbol;
-    GraphicsLayer.add(routeResult);
-  }
-
 
   });
 

@@ -41,7 +41,7 @@ class Goods(models.Model):
 #  Транспорт
 class Transport(models.Model):
     mark = models.CharField(max_length=100, verbose_name="Наименование")
-
+    number = models.CharField(max_length=10, verbose_name="Номер", default="")
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Transport._meta.fields]
 
@@ -96,21 +96,37 @@ class Driver(models.Model):
 #  Населенные пункты
 class Address(models.Model):
     label = models.CharField(max_length=255, verbose_name="Адрес", default="")
+    street = models.CharField(max_length=255, verbose_name="Адрес", default="")
     lat = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True, verbose_name="Широта")
     lon = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True, verbose_name="Долгота")
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in Address._meta.fields]
-
     def get_absolute_url(self,*args,**kwargs):
         return reverse('info:аdres-detail', kwargs={'pk': self.pk})
-
+    def __str__(self):
+        return self.label
     class Meta:
         verbose_name = "Населенные пункт"
         verbose_name_plural = "Населенные пункты"
 
+# Исполнители Base
+class Executor(models.Model):
+    phone = models.CharField(max_length=15, verbose_name="Телефон", blank=True, null=True)
+    mail = models.CharField(max_length=100, verbose_name="Электронная почта", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+# Слиенты Base
+class Client(models.Model):
+    phone = models.CharField(max_length=15, verbose_name="Телефон", blank=True, null=True)
+    mail = models.CharField(max_length=100, verbose_name="Электронная почта", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
 #  Исполнители частные лица
-class ExecutorPerson(models.Model):
+class ExecutorPerson(Executor):
     name = models.CharField(max_length=150, verbose_name="Имя")
     surname = models.CharField(max_length=150, verbose_name="Фамилия")
     patronymic = models.CharField(max_length=150, verbose_name="Отчество")
@@ -125,7 +141,7 @@ class ExecutorPerson(models.Model):
         verbose_name_plural = "Физические лица"
 
 #  Исполнители юридические лица
-class ExecutorLegal(models.Model):
+class ExecutorLegal(Executor):
     name = models.CharField(max_length=100, verbose_name="Сокращенное наименование")
     full_name = models.CharField(max_length=255, verbose_name="Полное наименование")
 
@@ -140,29 +156,28 @@ class ExecutorLegal(models.Model):
         verbose_name_plural = "Юридические лица"
 
 #  Клиенты (физ. лица)
-class ClientPerson(models.Model):
+class ClientPerson(Client):
     name = models.CharField(max_length=150, verbose_name="Имя")
     surname = models.CharField(max_length=150, verbose_name="Фамилия")
     patronymic = models.CharField(max_length=150, verbose_name="Отчество")
     address = models.CharField(max_length=255, verbose_name="Адрес")
     inn = models.CharField(max_length=255, verbose_name="ИНН")
-    phone = models.CharField(max_length=25, verbose_name="Телефон")
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ClientPerson._meta.fields]
     def get_absolute_url(self,*args,**kwargs):
         return reverse('info:client-person-detail', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Физическое лицо"
         verbose_name_plural = "Физические лица"
 
 #  Клиенты (юр лица)
-class ClientLegal(models.Model):
+class ClientLegal(Client):
     name = models.CharField(max_length=100, verbose_name="Сокращенное наименование")
     full_name = models.CharField(max_length=255, verbose_name="Полное наименование")
     address = models.CharField(max_length=255, verbose_name="Адрес")
     inn = models.CharField(max_length=255, verbose_name="ИНН")
-    phone = models.CharField(max_length=25, verbose_name="Телефон")
 
     def get_fields_and_values(self):
         return [(field, field.value_to_string(self)) for field in ClientLegal._meta.fields]
@@ -205,15 +220,8 @@ class OrderClient(models.Model):
         verbose_name="Организация"
         )
 
-    client_legal = models.ForeignKey(
-        ClientLegal,
-        on_delete=models.SET_NULL,
-        blank=True, null=True,
-        verbose_name="Клиент"
-    )
-    client_person = models.ForeignKey(ClientPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
-    executor_legal = models.ForeignKey(ExecutorLegal, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
-    executor_person = models.ForeignKey(ExecutorPerson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Клиент")
+    executor = models.ForeignKey(Executor, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Исполнитель")
 
     tariff = models.ForeignKey(Tariff, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Тариф")
 

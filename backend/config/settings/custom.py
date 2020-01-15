@@ -17,3 +17,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
     'General Options': ('SITE_NAME', 'SITE_DESCRIPTION'),
     'Theme Options': ('THEME',),
 }
+
+DATE_FORMAT = 'd.m.Y'           # 18.09.2009
+DATETIME_FORMAT = 'd.m.Y'   # 18.09.2009 22:41
+TIME_FORMAT = 'H:i'
